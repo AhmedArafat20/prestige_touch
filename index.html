@@ -46,7 +46,11 @@
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: 0.3s; }
     nav.scrolled .hamburger span { background: white; }
-
+.logo-img {
+    height: 50px; /* عدل الحجم حسب رغبتك */
+    width: auto;
+    display: block;
+}
     /* ===== HERO ===== */
     #hero {
       min-height: 100vh;
@@ -438,9 +442,9 @@
 
 <!-- NAV -->
 <nav id="mainNav">
-  <div class="nav-logo">
-    <span>PRESTIGE TOUCH <small>Cleaning Services</small></span>
-  </div>
+<div class="nav-logo">
+    <img src="./prestige.png" alt="Logo" class="logo-img">
+</div>
   <ul class="nav-links" id="navLinks">
     <li><a href="#hero"         data-ar="الرئيسية"   data-en="Home">الرئيسية</a></li>
     <li><a href="#about"        data-ar="من نحن"      data-en="About">من نحن</a></li>
