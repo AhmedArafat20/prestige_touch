@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prestige Touch Cleaning Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #2db34a;
+      --dark-green: #1a7a30;
+      --navy: #1a2a4a;
+      --light-green: #e8f9ec;
+      --white: #ffffff;
+      --gray: #f4f6f8;
+      --text: #1a2a4a;
+      --gold: #f5a623;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Cairo', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+    body.en { font-family: 'Poppins', sans-serif; direction: ltr; }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.07), 0 4px 24px rgba(0,0,0,0.06);
+      transition: background 0.3s;
+    }
+    nav.scrolled { background: rgba(26,42,74,0.98); }
+    .nav-logo span { color: var(--navy); font-size: 1.05rem; font-weight: 900; line-height: 1.2; transition: color 0.3s; }
+    nav.scrolled .nav-logo span { color: white; }
+    .nav-logo small { color: var(--green); font-size: 0.68rem; display: block; letter-spacing: 1px; text-transform: uppercase; }
+    .nav-links { display: flex; gap: 26px; list-style: none; }
+    .nav-links a { color: var(--navy); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.2s; position: relative; }
+    nav.scrolled .nav-links a { color: rgba(255,255,255,0.85); }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 2px; background: var(--green); transform: scaleX(0); transition: transform 0.25s; }
+    .nav-links a:hover { color: var(--green) !important; }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .lang-btn { background: var(--green); color: white; border: none; border-radius: 20px; padding: 8px 22px; font-size: 0.85rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.15s; font-family: inherit; }
+    .lang-btn:hover { background: var(--dark-green); transform: scale(1.05); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: 0.3s; }
+    nav.scrolled .hamburger span { background: white; }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
+      padding: 100px 5% 0;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: linear-gradient(120deg, #0d1e3a 0%, #112a1c 55%, #0a1e35 100%);
+    }
+    /* Diagonal white slice */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 120px;
+      background: var(--white);
+      clip-path: polygon(0 100%, 100% 100%, 100% 0);
+    }
+    /* Glowing orbs */
+    .orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+    }
+    .orb-1 { width: 500px; height: 500px; background: rgba(45,179,74,0.18); top: -100px; right: -100px; animation: orb-drift 8s ease-in-out infinite alternate; }
+    .orb-2 { width: 350px; height: 350px; background: rgba(26,42,74,0.5); bottom: 0; left: -80px; animation: orb-drift 10s ease-in-out infinite alternate-reverse; }
+    .orb-3 { width: 250px; height: 250px; background: rgba(45,179,74,0.1); top: 40%; left: 30%; animation: orb-drift 12s ease-in-out infinite alternate; }
+    @keyframes orb-drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.1); } }
+
+    /* Grid lines overlay */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 1;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* Animated ring */
+    .hero-ring {
+      position: absolute; z-index: 1;
+      border-radius: 50%; border: 1px solid rgba(45,179,74,0.15);
+      animation: ring-pulse 5s ease-in-out infinite;
+    }
+    .hero-ring:nth-child(1) { width: 320px; height: 320px; top: 8%; left: 2%; animation-delay: 0s; }
+    .hero-ring:nth-child(2) { width: 220px; height: 220px; bottom: 20%; right: 8%; animation-delay: 1.5s; }
+    @keyframes ring-pulse { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.1);opacity:.7} }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto;
+      padding-bottom: 120px;
+    }
+    .hero-left { }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+      padding: 7px 18px; border-radius: 30px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px;
+      margin-bottom: 28px;
+      animation: fadeDown 0.7s ease both;
+    }
+    .hero-eyebrow span { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: blink 1.5s ease infinite; display: inline-block; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero-h1 {
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 900; line-height: 1.15;
+      color: var(--white); margin-bottom: 12px;
+      animation: fadeDown 0.8s ease 0.1s both;
+    }
+    .hero-h1 .green { color: var(--green); }
+    .hero-h1 .white-pill {
+      display: inline-block;
+      background: var(--white);
+      color: var(--navy);
+      padding: 2px 16px; border-radius: 8px;
+    }
+
+    .hero-sub {
+      color: rgba(255,255,255,0.68); font-size: 1.05rem; line-height: 1.85;
+      margin-bottom: 38px;
+      animation: fadeDown 0.9s ease 0.2s both;
+      max-width: 480px;
+    }
+    .hero-actions {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      animation: fadeDown 1s ease 0.3s both;
+    }
+    .btn-primary { background: var(--green); color: white; border: none; padding: 15px 34px; border-radius: 30px; font-size: 0.97rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 24px rgba(45,179,74,0.4); font-family: inherit; display: inline-block; }
+    .btn-primary:hover { background: var(--dark-green); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(45,179,74,0.5); }
+    .btn-white { background: var(--white); color: var(--navy); border: none; padding: 15px 34px; border-radius: 30px; font-size: 0.97rem; font-weight: 700; text-decoration: none; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-family: inherit; display: inline-block; }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.2); }
+
+    /* Hero right card stack */
+    .hero-right {
+      animation: fadeUp 1s ease 0.4s both;
+      position: relative;
+    }
+    .hero-card-main {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px; padding: 36px;
+    }
+    .hero-card-main h3 { color: white; font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+    .hero-mini-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    .hero-mini-stat {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 18px; text-align: center;
+    }
+    .hero-mini-stat .num { font-size: 1.9rem; font-weight: 900; color: var(--green); line-height: 1; }
+    .hero-mini-stat .lbl { font-size: 0.78rem; color: rgba(255,255,255,0.6); margin-top: 4px; }
+    .uae-map-badge {
+      background: linear-gradient(135deg, var(--green), var(--dark-green));
+      border-radius: 14px; padding: 16px 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .uae-map-badge .icon { font-size: 2rem; }
+    .uae-map-badge .txt { }
+    .uae-map-badge .txt strong { color: white; font-size: 0.95rem; display: block; }
+    .uae-map-badge .txt span { color: rgba(255,255,255,0.75); font-size: 0.8rem; }
+
+    /* Floating chip */
+    .hero-chip {
+      position: absolute; top: -18px;
+      background: var(--white); border-radius: 30px;
+      padding: 10px 20px; display: flex; align-items: center; gap: 8px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      font-size: 0.82rem; font-weight: 700; color: var(--navy);
+      animation: chip-float 3s ease-in-out infinite;
+    }
+    body[dir="rtl"] .hero-chip { right: -16px; }
+    body[dir="ltr"] .hero-chip { left: -16px; }
+    .hero-chip .dot { width: 10px; height: 10px; background: var(--green); border-radius: 50%; }
+    @keyframes chip-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+    /* Stats bar */
+    .hero-stats-bar {
+      position: absolute; bottom: 0; left: 5%; right: 5%;
+      background: var(--white);
+      border-radius: 20px 20px 0 0;
+      display: flex; padding: 28px 40px;
+      gap: 0;
+      box-shadow: 0 -8px 40px rgba(0,0,0,0.12);
+      z-index: 3;
+    }
+    .hstat { flex: 1; text-align: center; position: relative; }
+    .hstat + .hstat::before { content: ''; position: absolute; top: 10%; bottom: 10%; right: 0; width: 1px; background: rgba(0,0,0,0.08); }
+    body.en .hstat + .hstat::before { right: auto; left: 0; }
+    .hstat-num { font-size: 2rem; font-weight: 900; color: var(--green); line-height: 1; }
+    .hstat-lbl { font-size: 0.8rem; color: #7a8898; margin-top: 4px; }
+
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ===== SHARED ===== */
+    section { padding: 90px 5%; }
+    .section-label { display: inline-block; color: var(--green); font-size: 0.75rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-weight: 900; color: var(--navy); margin-bottom: 14px; line-height: 1.2; }
+    .section-title span { color: var(--green); }
+    .section-sub { color: #6a7a8e; font-size: 1rem; max-width: 560px; line-height: 1.85; }
+    .section-header { margin-bottom: 56px; }
+    .center { text-align: center; }
+    .center .section-sub { margin: 0 auto; }
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== ABOUT ===== */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .about-visual {
+      position: relative;
+    }
+    .about-big-card {
+      background: linear-gradient(135deg, var(--navy) 0%, #0f2a15 100%);
+      border-radius: 28px; padding: 48px 36px; color: white;
+      position: relative; overflow: hidden;
+    }
+    .about-big-card::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      border-radius: 50%; background: rgba(45,179,74,0.12);
+    }
+    .about-big-card .emoji { font-size: 3.5rem; margin-bottom: 20px; display: block; position: relative; z-index: 1; }
+    .about-big-card h3 { font-size: 1.6rem; font-weight: 900; margin-bottom: 12px; position: relative; z-index: 1; }
+    .about-big-card p { font-size: 0.92rem; line-height: 1.85; opacity: 0.78; position: relative; z-index: 1; }
+    .about-floater {
+      position: absolute; bottom: -20px;
+      background: var(--white); border-radius: 16px;
+      padding: 16px 22px; box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      display: flex; align-items: center; gap: 12px;
+    }
+    body[dir="rtl"] .about-floater { left: -20px; }
+    body[dir="ltr"] .about-floater { right: -20px; }
+    .about-floater .af-icon { width: 42px; height: 42px; background: var(--light-green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+    .about-floater strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+    .about-floater small { font-size: 0.75rem; color: #8a9aae; }
+    .about-text { }
+    .about-text .section-header { margin-bottom: 28px; }
+    .about-para { color: #5a6a7e; font-size: 0.97rem; line-height: 1.9; margin-bottom: 20px; }
+    .about-values { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+    .value-chip {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--gray); border-radius: 12px; padding: 14px;
+      border: 1px solid transparent; transition: border-color 0.2s, background 0.2s;
+    }
+    .value-chip:hover { border-color: rgba(45,179,74,0.3); background: var(--light-green); }
+    .value-chip .vc-icon { font-size: 1.3rem; }
+    .value-chip span { font-size: 0.87rem; font-weight: 600; color: var(--navy); }
+
+    /* ===== UAE COVERAGE ===== */
+    #coverage { background: var(--navy); overflow: hidden; position: relative; }
+    #coverage::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at 80% 50%, rgba(45,179,74,0.12) 0%, transparent 60%),
+                  radial-gradient(circle at 10% 80%, rgba(45,179,74,0.07) 0%, transparent 50%);
+    }
+    .coverage-inner { position: relative; z-index: 1; }
+    .coverage-top { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 56px; }
+    .coverage-top .section-title { color: white; }
+    .coverage-top .section-sub { color: rgba(255,255,255,0.65); }
+    .coverage-desc { color: rgba(255,255,255,0.72); font-size: 0.95rem; line-height: 1.9; }
+    .emirates-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .emirate-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px; padding: 24px 20px; text-align: center;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+      cursor: default;
+    }
+    .emirate-card:hover { background: rgba(45,179,74,0.12); border-color: rgba(45,179,74,0.4); transform: translateY(-4px); }
+    .emirate-card .ec-flag { font-size: 2.2rem; margin-bottom: 10px; }
+    .emirate-card h4 { color: white; font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .emirate-card small { color: rgba(255,255,255,0.5); font-size: 0.78rem; }
+    .coverage-promise {
+      margin-top: 40px;
+      background: rgba(45,179,74,0.1);
+      border: 1px solid rgba(45,179,74,0.25);
+      border-radius: 16px; padding: 24px 32px;
+      display: flex; align-items: center; gap: 20px;
+    }
+    .coverage-promise .cp-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .coverage-promise p { color: rgba(255,255,255,0.85); font-size: 0.95rem; line-height: 1.8; }
+    .coverage-promise strong { color: var(--green); }
+
+    /* ===== SERVICES ===== */
+    #services { background: var(--gray); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; }
+    .service-card {
+      background: var(--white); border-radius: 18px; padding: 32px 26px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05); border: 1px solid rgba(45,179,74,0.08);
+      transition: transform 0.28s, box-shadow 0.28s, border-color 0.28s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, var(--green), var(--dark-green));
+      transform: scaleX(0); transition: transform 0.3s;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(45,179,74,0.13); border-color: rgba(45,179,74,0.25); }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon { width: 56px; height: 56px; background: var(--light-green); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 18px; transition: background 0.25s; }
+    .service-card:hover .service-icon { background: var(--green); }
+    .service-card h3 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .service-card p { font-size: 0.86rem; color: #6a7a8e; line-height: 1.75; }
+
+    /* ===== WHY US ===== */
+    #why { background: var(--white); }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; }
+    .why-visual {
+      background: linear-gradient(135deg, var(--navy) 0%, #0f2a15 100%);
+      border-radius: 28px; padding: 48px 36px; color: white;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .why-visual::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(45,179,74,0.22) 0%, transparent 60%);
+    }
+    .why-visual-emoji { font-size: 4rem; margin-bottom: 16px; display: block; position: relative; z-index: 1; }
+    .why-visual h3 { font-size: 1.5rem; font-weight: 900; margin-bottom: 10px; position: relative; z-index: 1; }
+    .why-visual p { font-size: 0.9rem; opacity: 0.78; position: relative; z-index: 1; line-height: 1.8; }
+    .why-list { display: flex; flex-direction: column; gap: 18px; }
+    .why-item { display: flex; gap: 16px; align-items: flex-start; padding: 18px; border-radius: 14px; transition: background 0.2s; }
+    .why-item:hover { background: var(--gray); }
+    .why-icon { width: 46px; height: 46px; background: var(--light-green); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+    .why-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .why-item p { font-size: 0.85rem; color: #6a7a8e; line-height: 1.65; }
+
+    /* ===== NUMBERS ===== */
+    #numbers { background: linear-gradient(135deg, var(--green) 0%, var(--dark-green) 100%); position: relative; overflow: hidden; padding: 80px 5%; }
+    #numbers::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+    .numbers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; z-index: 1; }
+    .num-item { text-align: center; padding: 20px; position: relative; }
+    .num-item + .num-item::before { content: ''; position: absolute; top: 15%; bottom: 15%; right: 0; width: 1px; background: rgba(255,255,255,0.2); }
+    body.en .num-item + .num-item::before { right: auto; left: 0; }
+    .num-big { font-size: 3rem; font-weight: 900; color: white; line-height: 1; }
+    .num-lbl { font-size: 0.88rem; color: rgba(255,255,255,0.8); margin-top: 6px; }
+
+    /* ===== PROCESS ===== */
+    #process { background: var(--gray); }
+    .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; position: relative; }
+    .process-steps::before { content: ''; position: absolute; top: 36px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--green), var(--dark-green)); z-index: 0; }
+    .step { text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+    .step-num { width: 72px; height: 72px; border-radius: 50%; background: var(--white); border: 3px solid var(--green); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 900; color: var(--green); margin: 0 auto 22px; box-shadow: 0 4px 20px rgba(45,179,74,0.2); transition: background 0.3s, color 0.3s; }
+    .step:hover .step-num { background: var(--green); color: white; }
+    .step h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .step p { font-size: 0.83rem; color: #6a7a8e; line-height: 1.65; }
+
+    /* ===== TESTIMONIALS ===== */
+    #testimonials { background: var(--white); }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; }
+    .testi-card {
+      background: var(--gray); border-radius: 18px; padding: 28px;
+      border: 1px solid transparent; transition: border-color 0.25s, transform 0.25s;
+      position: relative;
+    }
+    .testi-card:hover { border-color: rgba(45,179,74,0.3); transform: translateY(-4px); }
+    .testi-quote { font-size: 2.5rem; color: var(--green); line-height: 1; margin-bottom: 12px; font-family: Georgia, serif; }
+    .testi-card p { font-size: 0.9rem; color: #5a6a7e; line-height: 1.8; margin-bottom: 20px; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--dark-green)); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; font-weight: 700; }
+    .testi-author strong { display: block; font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+    .testi-author small { font-size: 0.75rem; color: #8a9aae; }
+    .testi-stars { color: var(--gold); font-size: 0.85rem; margin-bottom: 14px; }
+
+    /* ===== CONTACT ===== */
+    #contact { background: var(--navy); }
+    .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+    .contact-info .section-title { color: white; }
+    .contact-info .section-sub { color: rgba(255,255,255,0.65); }
+    .contact-cards { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+    .contact-card { display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 15px 20px; text-decoration: none; color: white; transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+    .contact-card:hover { background: rgba(45,179,74,0.15); border-color: rgba(45,179,74,0.4); transform: translateX(-4px); }
+    body.en .contact-card:hover { transform: translateX(4px); }
+    .contact-card-icon { width: 42px; height: 42px; background: var(--green); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-card small { display: block; font-size: 0.73rem; color: rgba(255,255,255,0.45); margin-bottom: 2px; }
+    .contact-card span { font-size: 0.92rem; font-weight: 600; direction: ltr; display: block; }
+    .contact-form { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 22px; padding: 36px; }
+    .contact-form h3 { color: white; font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group input, .form-group textarea { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.13); border-radius: 10px; padding: 13px 16px; color: white; font-size: 0.91rem; font-family: inherit; transition: border-color 0.2s; outline: none; }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.38); }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--green); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    /* ===== FOOTER ===== */
+    footer { background: #080f1d; color: rgba(255,255,255,0.5); text-align: center; padding: 30px 5%; font-size: 0.84rem; }
+    footer strong { color: var(--green); }
+
+    /* ===== FLOAT BTNS ===== */
+    .float-btns { position: fixed; bottom: 28px; left: 28px; display: flex; flex-direction: column; gap: 12px; z-index: 9999; }
+    body.en .float-btns { left: auto; right: 28px; }
+    .float-btn { width: 56px; height: 56px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0,0,0,0.25); transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; }
+    .float-btn:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(0,0,0,0.3); }
+    .float-wa { background: #25D366; }
+    .float-call { background: var(--green); }
+
+    .scroll-line { position: fixed; top: 0; left: 0; height: 3px; background: var(--green); z-index: 9998; width: 0%; transition: width 0.1s; }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .about-grid, .why-grid, .contact-wrapper, .coverage-top { grid-template-columns: 1fr; }
+      .numbers-grid { grid-template-columns: 1fr 1fr; }
+      .num-item + .num-item::before { display: none; }
+      .process-steps::before { display: none; }
+      .hero-stats-bar { flex-wrap: wrap; padding: 20px; gap: 10px; }
+      .hstat + .hstat::before { display: none; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: white; padding: 20px 5%; gap: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+      nav.scrolled .nav-links { background: var(--navy); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="scroll-line" id="scrollLine"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-logo">
+    <span>PRESTIGE TOUCH <small>Cleaning Services</small></span>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero"         data-ar="الرئيسية"   data-en="Home">الرئيسية</a></li>
+    <li><a href="#about"        data-ar="من نحن"      data-en="About">من نحن</a></li>
+    <li><a href="#coverage"     data-ar="تغطيتنا"    data-en="Coverage">تغطيتنا</a></li>
+    <li><a href="#services"     data-ar="خدماتنا"    data-en="Services">خدماتنا</a></li>
+    <li><a href="#why"          data-ar="لماذا نحن"  data-en="Why Us">لماذا نحن</a></li>
+    <li><a href="#contact"      data-ar="تواصل"       data-en="Contact">تواصل</a></li>
+  </ul>
+  <div style="display:flex;gap:12px;align-items:center;">
+    <button class="lang-btn" id="langBtn">EN</button>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-grid"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span></span>
+        <span data-ar="خدمات تنظيف احترافية · الإمارات العربية المتحدة" data-en="Professional Cleaning Services · UAE">خدمات تنظيف احترافية · الإمارات العربية المتحدة</span>
+      </div>
+      <h1 class="hero-h1">
+        <span class="white-pill" data-ar="بريستيج تاتش" data-en="Prestige Touch">بريستيج تاتش</span><br>
+        <span class="green" data-ar="لخدمات التنظيف" data-en="Cleaning Services">لخدمات التنظيف</span>
+      </h1>
+      <p class="hero-sub" data-ar="نقدم خدمات تنظيف متكاملة واحترافية للمنشآت الصناعية، المباني، السفن، والسجاد — بأيدٍ خبيرة وتقنيات حديثة تضمن نتائج استثنائية." data-en="We deliver complete professional cleaning solutions for industrial facilities, buildings, ships, and carpets — with expert hands and modern techniques for exceptional results.">نقدم خدمات تنظيف متكاملة واحترافية للمنشآت الصناعية، المباني، السفن، والسجاد — بأيدٍ خبيرة وتقنيات حديثة تضمن نتائج استثنائية.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary" data-ar="تواصل معنا الآن" data-en="Contact Us Now">تواصل معنا الآن</a>
+        <a href="#services" class="btn-white" data-ar="استكشف خدماتنا" data-en="Our Services">استكشف خدماتنا</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-chip">
+        <div class="dot"></div>
+        <span data-ar="متاحون الآن للخدمة" data-en="Available Now">متاحون الآن للخدمة</span>
+      </div>
+      <div class="hero-card-main">
+        <h3 data-ar="نظرة سريعة" data-en="Quick Overview">نظرة سريعة</h3>
+        <div class="hero-mini-stats">
+          <div class="hero-mini-stat"><div class="num">500+</div><div class="lbl" data-ar="عميل راضٍ" data-en="Happy Clients">عميل راضٍ</div></div>
+          <div class="hero-mini-stat"><div class="num">8+</div><div class="lbl" data-ar="سنوات خبرة" data-en="Years Experience">سنوات خبرة</div></div>
+          <div class="hero-mini-stat"><div class="num">10+</div><div class="lbl" data-ar="خدمة متخصصة" data-en="Services">خدمة متخصصة</div></div>
+          <div class="hero-mini-stat"><div class="num">7</div><div class="lbl" data-ar="إمارات نغطيها" data-en="Emirates Covered">إمارات نغطيها</div></div>
+        </div>
+        <div class="uae-map-badge">
+          <div class="icon">🇦🇪</div>
+          <div class="txt">
+            <strong data-ar="نغطي الإمارات بالكامل" data-en="Full UAE Coverage">نغطي الإمارات بالكامل</strong>
+            <span data-ar="من أبوظبي إلى الفجيرة" data-en="From Abu Dhabi to Fujairah">من أبوظبي إلى الفجيرة</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats bar at bottom -->
+  <div class="hero-stats-bar">
+    <div class="hstat"><div class="hstat-num">500+</div><div class="hstat-lbl" data-ar="عميل راضٍ" data-en="Happy Clients">عميل راضٍ</div></div>
+    <div class="hstat"><div class="hstat-num">8+</div><div class="hstat-lbl" data-ar="سنوات في السوق" data-en="Years in Market">سنوات في السوق</div></div>
+    <div class="hstat"><div class="hstat-num">7</div><div class="hstat-lbl" data-ar="إمارات نخدمها" data-en="Emirates Served">إمارات نخدمها</div></div>
+    <div class="hstat"><div class="hstat-num">24/7</div><div class="hstat-lbl" data-ar="دعم مستمر" data-en="Always Available">دعم مستمر</div></div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="about-big-card">
+        <span class="emoji">🏆</span>
+        <h3 data-ar="رؤيتنا: النظافة معيار التميز" data-en="Our Vision: Cleanliness is Excellence">رؤيتنا: النظافة معيار التميز</h3>
+        <p data-ar="نؤمن أن بيئة نظيفة هي أساس الإنتاجية والصحة والجمال. لذلك نسعى دائماً لتقديم أفضل تجربة تنظيف ممكنة لعملائنا في الإمارات." data-en="We believe a clean environment is the foundation of productivity, health, and beauty. That's why we always strive to deliver the best possible cleaning experience to our clients across the UAE.">نؤمن أن بيئة نظيفة هي أساس الإنتاجية والصحة والجمال. لذلك نسعى دائماً لتقديم أفضل تجربة تنظيف ممكنة لعملائنا في الإمارات.</p>
+      </div>
+      <div class="about-floater">
+        <div class="af-icon">✅</div>
+        <div>
+          <strong data-ar="معتمدون ومرخصون" data-en="Certified & Licensed">معتمدون ومرخصون</strong>
+          <small data-ar="نعمل وفق أعلى المعايير" data-en="Operating to highest standards">نعمل وفق أعلى المعايير</small>
+        </div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-header reveal">
+        <span class="section-label" data-ar="تعرف علينا" data-en="ABOUT US">تعرف علينا</span>
+        <h2 class="section-title" data-ar="من نحن؟ <span>بريستيج تاتش</span>" data-en="Who Are <span>Prestige Touch?</span>">من نحن؟ <span>بريستيج تاتش</span></h2>
+      </div>
+      <p class="about-para reveal" data-ar="بريستيج تاتش هي شركة إماراتية متخصصة في خدمات التنظيف الشامل والاحترافي. تأسست على يد فريق من المحترفين ذوي الخبرة الطويلة في مجال التنظيف الصناعي والتجاري والمنزلي." data-en="Prestige Touch is a UAE-based company specialized in comprehensive and professional cleaning services. Founded by a team of experienced professionals in industrial, commercial, and residential cleaning.">بريستيج تاتش هي شركة إماراتية متخصصة في خدمات التنظيف الشامل والاحترافي. تأسست على يد فريق من المحترفين ذوي الخبرة الطويلة في مجال التنظيف الصناعي والتجاري والمنزلي.</p>
+      <p class="about-para reveal" data-ar="نفخر بتقديم خدمات عالية الجودة تغطي جميع أنحاء الإمارات العربية المتحدة، مع التزام راسخ بالمواعيد، ورضا العميل، واستخدام أفضل المواد والمعدات المعتمدة." data-en="We are proud to provide high-quality services covering all of the UAE, with a firm commitment to punctuality, client satisfaction, and using the best approved materials and equipment.">نفخر بتقديم خدمات عالية الجودة تغطي جميع أنحاء الإمارات العربية المتحدة، مع التزام راسخ بالمواعيد، ورضا العميل، واستخدام أفضل المواد والمعدات المعتمدة.</p>
+      <div class="about-values reveal">
+        <div class="value-chip"><span class="vc-icon">🎯</span><span data-ar="دقة في التنفيذ" data-en="Precision">دقة في التنفيذ</span></div>
+        <div class="value-chip"><span class="vc-icon">🌿</span><span data-ar="مواد آمنة وصديقة" data-en="Eco-Friendly">مواد آمنة وصديقة</span></div>
+        <div class="value-chip"><span class="vc-icon">🤝</span><span data-ar="نزاهة وشفافية" data-en="Integrity">نزاهة وشفافية</span></div>
+        <div class="value-chip"><span class="vc-icon">⚡</span><span data-ar="سرعة في الاستجابة" data-en="Fast Response">سرعة في الاستجابة</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== UAE COVERAGE ===== -->
+<section id="coverage">
+  <div class="coverage-inner">
+    <div class="coverage-top">
+      <div class="reveal">
+        <span class="section-label" style="color:var(--green);" data-ar="نطاق العمل" data-en="COVERAGE">نطاق العمل</span>
+        <h2 class="section-title" data-ar="نعمل في <span>كل الإمارات</span>" data-en="We Work Across <span>All UAE</span>">نعمل في <span>كل الإمارات</span></h2>
+        <p class="section-sub" style="color:rgba(255,255,255,0.65);" data-ar="فريقنا جاهز للتنقل والعمل في أي إمارة أو منطقة داخل الدولة" data-en="Our team is ready to travel and work in any emirate or region within the country">فريقنا جاهز للتنقل والعمل في أي إمارة أو منطقة داخل الدولة</p>
+      </div>
+      <div class="reveal">
+        <p class="coverage-desc" data-ar="سواء كنت في أبوظبي أو دبي أو الشارقة أو عجمان أو أم القيوين أو رأس الخيمة أو الفجيرة — بريستيج تاتش موجودة وجاهزة لخدمتك. نؤمن بأن كل عميل يستحق نظافة بمعايير عالمية بغض النظر عن موقعه." data-en="Whether you're in Abu Dhabi, Dubai, Sharjah, Ajman, Umm Al Quwain, Ras Al Khaimah, or Fujairah — Prestige Touch is there and ready to serve you. We believe every client deserves world-class cleanliness regardless of location.">سواء كنت في أبوظبي أو دبي أو الشارقة أو عجمان أو أم القيوين أو رأس الخيمة أو الفجيرة — بريستيج تاتش موجودة وجاهزة لخدمتك. نؤمن بأن كل عميل يستحق نظافة بمعايير عالمية بغض النظر عن موقعه.</p>
+      </div>
+    </div>
+    <div class="emirates-grid">
+      <div class="emirate-card reveal"><div class="ec-flag">🏙️</div><h4 data-ar="أبوظبي" data-en="Abu Dhabi">أبوظبي</h4><small data-ar="العاصمة" data-en="Capital">العاصمة</small></div>
+      <div class="emirate-card reveal"><div class="ec-flag">✨</div><h4 data-ar="دبي" data-en="Dubai">دبي</h4><small data-ar="مدينة المستقبل" data-en="City of Future">مدينة المستقبل</small></div>
+      <div class="emirate-card reveal"><div class="ec-flag">🌆</div><h4 data-ar="الشارقة" data-en="Sharjah">الشارقة</h4><small data-ar="عاصمة الثقافة" data-en="Cultural Capital">عاصمة الثقافة</small></div>
+      <div class="emirate-card reveal"><div class="ec-flag">🌊</div><h4 data-ar="عجمان" data-en="Ajman">عجمان</h4><small data-ar="جوهرة الخليج" data-en="Gulf Gem">جوهرة الخليج</small></div>
+      <div class="emirate-card reveal"><div class="ec-flag">🌿</div><h4 data-ar="أم القيوين" data-en="Umm Al Quwain">أم القيوين</h4><small data-ar="الهدوء والطبيعة" data-en="Calm & Nature">الهدوء والطبيعة</small></div>
+      <div class="emirate-card reveal"><div class="ec-flag">⛰️</div><h4 data-ar="رأس الخيمة" data-en="Ras Al Khaimah">رأس الخيمة</h4><small data-ar="بين الجبل والبحر" data-en="Mountain & Sea">بين الجبل والبحر</small></div>
+      <div class="emirate-card reveal"><div class="ec-flag">🌅</div><h4 data-ar="الفجيرة" data-en="Fujairah">الفجيرة</h4><small data-ar="ساحل المحيط الهندي" data-en="Indian Ocean Coast">ساحل المحيط الهندي</small></div>
+    </div>
+    <div class="coverage-promise reveal">
+      <div class="cp-icon">🚚</div>
+      <p data-ar="<strong>تنقل مجاني لجميع الإمارات</strong> — فريقنا يصل إليك أينما كنت في الدولة. لا تقلق من المسافة، رضاك هو أولويتنا ونحن نتكفل بالوصول إليك في الوقت المحدد." data-en="<strong>Free Mobility Across All Emirates</strong> — Our team reaches you wherever you are in the country. Don't worry about distance, your satisfaction is our priority and we commit to arriving on time."><strong>تنقل مجاني لجميع الإمارات</strong> — فريقنا يصل إليك أينما كنت في الدولة. لا تقلق من المسافة، رضاك هو أولويتنا ونحن نتكفل بالوصول إليك في الوقت المحدد.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+  <div class="section-header center reveal">
+    <span class="section-label" data-ar="ما نقدمه" data-en="WHAT WE OFFER">ما نقدمه</span>
+    <h2 class="section-title" data-ar="خدماتنا <span>المتخصصة</span>" data-en="Our <span>Specialized</span> Services">خدماتنا <span>المتخصصة</span></h2>
+    <p class="section-sub" data-ar="نغطي كل احتياجاتك من التنظيف بكفاءة عالية وفريق متدرب باحترافية" data-en="We cover all your cleaning needs with high efficiency and a professionally trained team">نغطي كل احتياجاتك من التنظيف بكفاءة عالية وفريق متدرب باحترافية</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal"><div class="service-icon">🏭</div><h3 data-ar="تنظيف المنشآت الصناعية" data-en="Industrial Facility Cleaning">تنظيف المنشآت الصناعية</h3><p data-ar="خدمات تنظيف متخصصة للمصانع والمنشآت الكبيرة بمعدات احترافية" data-en="Specialized cleaning for factories and large facilities with professional equipment">خدمات تنظيف متخصصة للمصانع والمنشآت الكبيرة بمعدات احترافية</p></div>
+    <div class="service-card reveal"><div class="service-icon">🏢</div><h3 data-ar="تنظيف المباني الداخلي" data-en="Interior Building Cleaning">تنظيف المباني الداخلي</h3><p data-ar="تنظيف شامل لكل أجزاء المبنى الداخلية بدقة واهتمام بالتفاصيل" data-en="Comprehensive interior cleaning with precision and attention to detail">تنظيف شامل لكل أجزاء المبنى الداخلية بدقة واهتمام بالتفاصيل</p></div>
+    <div class="service-card reveal"><div class="service-icon">🏗️</div><h3 data-ar="تنظيف الواجهات الخارجية" data-en="Exterior & Facade Cleaning">تنظيف الواجهات الخارجية</h3><p data-ar="تلميع وتنظيف الواجهات بتقنيات متطورة وآمنة تحافظ على المبنى" data-en="Polishing and cleaning facades with advanced and safe techniques">تلميع وتنظيف الواجهات بتقنيات متطورة وآمنة تحافظ على المبنى</p></div>
+    <div class="service-card reveal"><div class="service-icon">🛢️</div><h3 data-ar="تنظيف الصوامع والخزانات" data-en="Silo, Tank & Reservoir Cleaning">تنظيف الصوامع والخزانات</h3><p data-ar="تنظيم وتعقيم الصوامع والخزانات باتباع أعلى معايير الجودة" data-en="Cleaning and sterilization of silos and tanks to the highest standards">تنظيم وتعقيم الصوامع والخزانات باتباع أعلى معايير الجودة</p></div>
+    <div class="service-card reveal"><div class="service-icon">🚢</div><h3 data-ar="تنظيف السفن واليخوت" data-en="Ship & Yacht Cleaning">تنظيف السفن واليخوت</h3><p data-ar="خدمة متخصصة لتنظيف السفن واليخوت والقوارب بكل أنواعها" data-en="Specialized service for cleaning ships, yachts and all boat types">خدمة متخصصة لتنظيف السفن واليخوت والقوارب بكل أنواعها</p></div>
+    <div class="service-card reveal"><div class="service-icon">🧼</div><h3 data-ar="خدمات التطهير والتعقيم" data-en="Disinfection & Sterilization">خدمات التطهير والتعقيم</h3><p data-ar="تعقيم شامل وآمن بأحدث المواد المعتمدة لحماية بيئة عملك" data-en="Comprehensive sterilization using the latest approved materials">تعقيم شامل وآمن بأحدث المواد المعتمدة لحماية بيئة عملك</p></div>
+    <div class="service-card reveal"><div class="service-icon">🛋️</div><h3 data-ar="تنظيف الكنب والسجاد" data-en="Sofa & Carpet Cleaning">تنظيف الكنب والسجاد</h3><p data-ar="إزالة البقع والأوساخ بأجهزة متطورة وبخار ساخن يعيد الألوان" data-en="Stain removal using advanced machines and hot steam that restores colors">إزالة البقع والأوساخ بأجهزة متطورة وبخار ساخن يعيد الألوان</p></div>
+    <div class="service-card reveal"><div class="service-icon">📋</div><h3 data-ar="تنظيف اللوحات الإعلانية" data-en="Billboard Cleaning">تنظيف اللوحات الإعلانية</h3><p data-ar="تنظيف احترافي للوحات الخارجية للحفاظ على صورة علامتك التجارية" data-en="Professional cleaning of outdoor billboards to maintain your brand image">تنظيف احترافي للوحات الخارجية للحفاظ على صورة علامتك التجارية</p></div>
+  </div>
+</section>
+
+<!-- ===== WHY US ===== -->
+<section id="why">
+  <div class="why-grid">
+    <div class="why-visual reveal">
+      <span class="why-visual-emoji">🏆</span>
+      <h3 data-ar="الجودة هي تعهدنا" data-en="Quality is Our Commitment">الجودة هي تعهدنا</h3>
+      <p data-ar="نلتزم بأعلى معايير الجودة في كل مهمة تنظيف، مع ضمان رضا العميل الكامل في كل وقت وفي كل مكان." data-en="We commit to the highest quality standards in every cleaning task, ensuring full client satisfaction at all times and everywhere.">نلتزم بأعلى معايير الجودة في كل مهمة تنظيف، مع ضمان رضا العميل الكامل في كل وقت وفي كل مكان.</p>
+    </div>
+    <div>
+      <div class="section-header reveal">
+        <span class="section-label" data-ar="ميزتنا" data-en="OUR EDGE">ميزتنا</span>
+        <h2 class="section-title" data-ar="لماذا تختار <span>بريستيج تاتش؟</span>" data-en="Why Choose <span>Prestige Touch?</span>">لماذا تختار <span>بريستيج تاتش؟</span></h2>
+      </div>
+      <div class="why-list">
+        <div class="why-item reveal"><div class="why-icon">👷</div><div><h4 data-ar="فريق محترف ومدرب" data-en="Professional Trained Team">فريق محترف ومدرب</h4><p data-ar="طاقم عمل مؤهل ومدرب على أحدث أساليب التنظيف وبروتوكولات السلامة" data-en="Qualified staff trained in the latest cleaning methods and safety protocols">طاقم عمل مؤهل ومدرب على أحدث أساليب التنظيف وبروتوكولات السلامة</p></div></div>
+        <div class="why-item reveal"><div class="why-icon">⚡</div><div><h4 data-ar="أدوات ومعدات متطورة" data-en="Advanced Equipment">أدوات ومعدات متطورة</h4><p data-ar="نستخدم أحدث المعدات والمواد الآمنة والمعتمدة للحصول على أفضل النتائج" data-en="We use the latest equipment and safe, approved materials for best results">نستخدم أحدث المعدات والمواد الآمنة والمعتمدة للحصول على أفضل النتائج</p></div></div>
+        <div class="why-item reveal"><div class="why-icon">🕐</div><div><h4 data-ar="خدمة على مدار الساعة" data-en="24/7 Service">خدمة على مدار الساعة</h4><p data-ar="متاحون دائماً لخدمتك في أي وقت وفي أي يوم من أيام الأسبوع" data-en="Always available at any time, any day of the week">متاحون دائماً لخدمتك في أي وقت وفي أي يوم من أيام الأسبوع</p></div></div>
+        <div class="why-item reveal"><div class="why-icon">💰</div><div><h4 data-ar="أسعار تنافسية" data-en="Competitive Pricing">أسعار تنافسية</h4><p data-ar="خدمات عالية الجودة بأسعار مناسبة وعروض مخصصة لكل عميل" data-en="High-quality services at competitive prices with customized offers">خدمات عالية الجودة بأسعار مناسبة وعروض مخصصة لكل عميل</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== NUMBERS ===== -->
+<section id="numbers">
+  <div class="numbers-grid">
+    <div class="num-item reveal"><div class="num-big">500+</div><div class="num-lbl" data-ar="عميل راضٍ في الإمارات" data-en="Satisfied Clients in UAE">عميل راضٍ في الإمارات</div></div>
+    <div class="num-item reveal"><div class="num-big">8+</div><div class="num-lbl" data-ar="سنوات خبرة متراكمة" data-en="Years of Experience">سنوات خبرة متراكمة</div></div>
+    <div class="num-item reveal"><div class="num-big">7</div><div class="num-lbl" data-ar="إمارات تشملها خدماتنا" data-en="Emirates We Cover">إمارات تشملها خدماتنا</div></div>
+    <div class="num-item reveal"><div class="num-big">100%</div><div class="num-lbl" data-ar="ضمان رضا العميل" data-en="Client Satisfaction Guarantee">ضمان رضا العميل</div></div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section id="process">
+  <div class="section-header center reveal">
+    <span class="section-label" data-ar="طريقة العمل" data-en="HOW IT WORKS">طريقة العمل</span>
+    <h2 class="section-title" data-ar="كيف <span>نعمل معك؟</span>" data-en="How Do <span>We Work?</span>">كيف <span>نعمل معك؟</span></h2>
+    <p class="section-sub" data-ar="أربع خطوات بسيطة تضمن لك خدمة تنظيف لا تُنسى" data-en="Four simple steps that guarantee you an unforgettable cleaning service">أربع خطوات بسيطة تضمن لك خدمة تنظيف لا تُنسى</p>
+  </div>
+  <div class="process-steps">
+    <div class="step reveal"><div class="step-num">1</div><h4 data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</h4><p data-ar="اتصل بنا أو أرسل رسالة وسنرد عليك فوراً" data-en="Call or message us and we'll reply immediately">اتصل بنا أو أرسل رسالة وسنرد عليك فوراً</p></div>
+    <div class="step reveal"><div class="step-num">2</div><h4 data-ar="تقييم المشروع" data-en="Site Assessment">تقييم المشروع</h4><p data-ar="نزور الموقع ونقيّم احتياجاتك بدقة" data-en="We visit and assess your needs precisely">نزور الموقع ونقيّم احتياجاتك بدقة</p></div>
+    <div class="step reveal"><div class="step-num">3</div><h4 data-ar="عرض السعر" data-en="Price Quote">عرض السعر</h4><p data-ar="نقدم لك عرضاً مفصلاً وشفافاً بدون رسوم خفية" data-en="A detailed transparent quote with no hidden fees">نقدم لك عرضاً مفصلاً وشفافاً بدون رسوم خفية</p></div>
+    <div class="step reveal"><div class="step-num">4</div><h4 data-ar="التنفيذ والتسليم" data-en="Execution & Delivery">التنفيذ والتسليم</h4><p data-ar="فريقنا ينجز العمل ويسلمك نتيجة تفوق توقعاتك" data-en="Our team delivers results beyond your expectations">فريقنا ينجز العمل ويسلمك نتيجة تفوق توقعاتك</p></div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section id="testimonials">
+  <div class="section-header center reveal">
+    <span class="section-label" data-ar="آراء عملائنا" data-en="CLIENT REVIEWS">آراء عملائنا</span>
+    <h2 class="section-title" data-ar="ماذا يقول <span>عملاؤنا؟</span>" data-en="What Do <span>Our Clients Say?</span>">ماذا يقول <span>عملاؤنا؟</span></h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p data-ar="فريق محترف جداً وعمل ممتاز. نظفوا المصنع بالكامل في وقت قياسي والنتيجة كانت رائعة. أنصح بهم بشدة لأي شركة تبحث عن تنظيف احترافي." data-en="Extremely professional team and excellent work. They cleaned the entire factory in record time and the result was fantastic. Highly recommend for any company seeking professional cleaning.">فريق محترف جداً وعمل ممتاز. نظفوا المصنع بالكامل في وقت قياسي والنتيجة كانت رائعة. أنصح بهم بشدة لأي شركة تبحث عن تنظيف احترافي.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">م</div>
+        <div><strong data-ar="محمد العامري" data-en="Mohammed Al Ameri">محمد العامري</strong><small data-ar="مدير مصنع — أبوظبي" data-en="Factory Manager — Abu Dhabi">مدير مصنع — أبوظبي</small></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p data-ar="خدمة تنظيف الخزانات كانت احترافية جداً. الفريق جاء في الموعد المحدد وأنجز العمل بكفاءة عالية. سنتعامل معهم دائماً." data-en="The tank cleaning service was very professional. The team arrived on time and completed the work with high efficiency. We will always work with them.">خدمة تنظيف الخزانات كانت احترافية جداً. الفريق جاء في الموعد المحدد وأنجز العمل بكفاءة عالية. سنتعامل معهم دائماً.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">س</div>
+        <div><strong data-ar="سارة الحمادي" data-en="Sara Al Hamadi">سارة الحمادي</strong><small data-ar="مديرة عمليات — دبي" data-en="Operations Manager — Dubai">مديرة عمليات — دبي</small></div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p data-ar="تنظيف اليخت كان رائعاً، استخدموا أفضل المواد وتركوه كالجديد تماماً. سرعة في الرد وأسعار معقولة جداً. شكراً بريستيج تاتش!" data-en="The yacht cleaning was wonderful, they used the best materials and left it brand new. Fast response and very reasonable prices. Thank you Prestige Touch!">تنظيف اليخت كان رائعاً، استخدموا أفضل المواد وتركوه كالجديد تماماً. سرعة في الرد وأسعار معقولة جداً. شكراً بريستيج تاتش!</p>
+      <div class="testi-author">
+        <div class="testi-avatar">خ</div>
+        <div><strong data-ar="خالد النعيمي" data-en="Khalid Al Naimi">خالد النعيمي</strong><small data-ar="رجل أعمال — رأس الخيمة" data-en="Businessman — Ras Al Khaimah">رجل أعمال — رأس الخيمة</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="contact-wrapper">
+    <div class="contact-info reveal">
+      <span class="section-label" style="color:var(--green);" data-ar="تواصل معنا" data-en="GET IN TOUCH">تواصل معنا</span>
+      <h2 class="section-title" data-ar="نحن هنا <span>لخدمتك</span>" data-en="We Are Here <span>For You</span>">نحن هنا <span>لخدمتك</span></h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.65);" data-ar="تواصل معنا عبر أي قناة وسنرد عليك في أسرع وقت ممكن" data-en="Reach us through any channel and we'll respond as soon as possible">تواصل معنا عبر أي قناة وسنرد عليك في أسرع وقت ممكن</p>
+      <div class="contact-cards">
+        <a href="tel:+971566600102" class="contact-card"><div class="contact-card-icon">📞</div><div><small data-ar="اتصل بنا" data-en="Call">اتصل بنا</small><span>+971 566 600 102</span></div></a>
+        <a href="tel:+971564633516" class="contact-card"><div class="contact-card-icon">📞</div><div><small data-ar="اتصل بنا" data-en="Call">اتصل بنا</small><span>+971 564 633 516</span></div></a>
+        <a href="tel:+971504467791" class="contact-card"><div class="contact-card-icon">📞</div><div><small data-ar="اتصل بنا" data-en="Call">اتصل بنا</small><span>+971 504 467 791</span></div></a>
+        <a href="mailto:Prestige.Touch.Services@gmail.com" class="contact-card"><div class="contact-card-icon">✉️</div><div><small data-ar="البريد" data-en="Email">البريد</small><span>Prestige.Touch.Services@gmail.com</span></div></a>
+        <a href="https://instagram.com/prestige.touch.services" class="contact-card" target="_blank"><div class="contact-card-icon">📸</div><div><small data-ar="انستجرام" data-en="Instagram">انستجرام</small><span>@prestige.touch.services</span></div></a>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <h3 data-ar="أرسل لنا رسالة" data-en="Send Us a Message">أرسل لنا رسالة</h3>
+      <div class="form-group"><input type="text" id="fname" data-ar-placeholder="الاسم الكامل" data-en-placeholder="Full Name" /></div>
+      <div class="form-group"><input type="tel" id="fphone" data-ar-placeholder="رقم الهاتف" data-en-placeholder="Phone Number" /></div>
+      <div class="form-group"><input type="email" id="femail" data-ar-placeholder="البريد الإلكتروني" data-en-placeholder="Email Address" /></div>
+      <div class="form-group"><textarea id="fmsg" data-ar-placeholder="رسالتك..." data-en-placeholder="Your message..."></textarea></div>
+      <button class="btn-primary" style="width:100%;" onclick="sendWhatsApp()" data-ar="إرسال عبر واتساب 💬" data-en="Send via WhatsApp 💬">إرسال عبر واتساب 💬</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 <strong>Prestige Touch Cleaning Services</strong> — <span data-ar="جميع الحقوق محفوظة · الإمارات العربية المتحدة" data-en="All Rights Reserved · United Arab Emirates">جميع الحقوق محفوظة · الإمارات العربية المتحدة</span></p>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a href="https://wa.me/971566600102" target="_blank" class="float-btn float-wa">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.122 1.533 5.856L0 24l6.338-1.502A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.001-1.366l-.36-.213-3.728.883.934-3.622-.234-.373A9.818 9.818 0 012.182 12C2.182 6.58 6.58 2.182 12 2.182S21.818 6.58 21.818 12 17.42 21.818 12 21.818z"/></svg>
+  </a>
+  <a href="tel:+971566600102" class="float-btn float-call">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+  </a>
+</div>
+
+<script>
+  let currentLang = 'ar';
+
+  function setLang(lang) {
+    currentLang = lang;
+    const html = document.documentElement;
+    if (lang === 'en') {
+      document.body.classList.add('en');
+      html.setAttribute('lang','en'); html.setAttribute('dir','ltr');
+      document.getElementById('langBtn').textContent = 'عربي';
+    } else {
+      document.body.classList.remove('en');
+      html.setAttribute('lang','ar'); html.setAttribute('dir','rtl');
+      document.getElementById('langBtn').textContent = 'EN';
+    }
+    document.querySelectorAll('[data-ar]').forEach(el => {
+      el.innerHTML = el.getAttribute('data-' + lang);
+    });
+    document.querySelectorAll('[data-ar-placeholder]').forEach(el => {
+      el.placeholder = el.getAttribute('data-' + lang + '-placeholder');
+    });
+  }
+
+  document.getElementById('langBtn').addEventListener('click', () => setLang(currentLang === 'ar' ? 'en' : 'ar'));
+
+  // Init placeholders
+  document.querySelectorAll('[data-ar-placeholder]').forEach(el => {
+    el.placeholder = el.getAttribute('data-ar-placeholder');
+  });
+
+  // Hamburger
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // Nav scroll style
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 6 * 0.08) + 's';
+    observer.observe(el);
+  });
+
+  // Scroll progress
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    document.getElementById('scrollLine').style.width =
+      (doc.scrollTop / (doc.scrollHeight - doc.clientHeight) * 100) + '%';
+  });
+
+  // Counter animation
+  function animateCounters() {
+    document.querySelectorAll('.num-big').forEach(el => {
+      const text = el.textContent;
+      const num = parseInt(text.replace(/\D/g,''));
+      if (!num || el.dataset.animated) return;
+      el.dataset.animated = '1';
+      const suffix = text.replace(/[\d]/g,'');
+      let start = 0;
+      const duration = 1800;
+      const step = timestamp => {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+        el.textContent = Math.floor(progress * num) + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  const numObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { animateCounters(); numObs.disconnect(); } });
+  }, { threshold: 0.3 });
+  const numSection = document.getElementById('numbers');
+  if (numSection) numObs.observe(numSection);
+
+  // WhatsApp form
+  function sendWhatsApp() {
+    const name = document.getElementById('fname').value;
+    const phone = document.getElementById('fphone').value;
+    const msg = document.getElementById('fmsg').value;
+    const text = currentLang === 'ar'
+      ? `مرحباً، أنا ${name||'عميل'}\nهاتف: ${phone}\n${msg}`
+      : `Hello, I'm ${name||'a client'}\nPhone: ${phone}\n${msg}`;
+    window.open('https://wa.me/971566600102?text=' + encodeURIComponent(text), '_blank');
+  }
+
+  // Nav active
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 90) cur = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--green)' : ''; });
+  });
+</script>
+</body>
+</html>
